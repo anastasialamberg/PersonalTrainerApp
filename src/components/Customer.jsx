@@ -5,10 +5,11 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 
 export default function Customer() {
 
+
+    //States
     const [customers, setCustomers] = useState([]);
 
-
-
+    //Colum Definitions for AGGrid
     const columnDefs = [
         { field: 'firstname', sortable: true, filter: true, floatiFilter: true },
         { field: 'lastname', sortable: true, filter: true, floatiFilter: true },
@@ -33,7 +34,7 @@ export default function Customer() {
     }
     return (
         <>
-            <div className="ag-theme-material" style={{ height: 500, width: '100%', margin: 'auto' }} >
+            <div className="ag-theme-material" style={{ height: 500, width: 1500, margin: 'auto' }} >
 
                 <AgGridReact
                     rowData={customers}

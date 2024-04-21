@@ -16,6 +16,20 @@ export default function Training() {
         },
         { field: 'duration', sortable: true, filter: true, floatiFilter: true },
         { field: 'activity', sortable: true, filter: true, floatiFilter: true },
+
+        {
+            headerName: 'Customer',
+            valueGetter: () => {
+                const customer = fetch(`https://customerrestservice-personaltraining.rahtiapp.fi/api/customers/${customerId}`)
+                    .then(response => response.json())
+                    .then(customerData => `${customerData.firstname} ${customerData.lastname}`)
+                    .catch(error => {
+                        console.error('Error fetching customer data:', error);
+                        return '';
+                    });
+                return customer;
+            }
+        }
     ];
 
     useEffect(() => {
@@ -30,6 +44,7 @@ export default function Training() {
             })
             .catch(error => console.error(error));
     }
+
     return (
         <>
             <div className="ag-theme-material" style={{ height: 600, width: '120%', margin: 'auto' }}>
