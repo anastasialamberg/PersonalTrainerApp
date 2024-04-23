@@ -5,6 +5,8 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 import { format, compareAsc } from "date-fns";
 
 export default function Training() {
+
+    //States
     const [trainings, setTrainings] = useState([]);
     const columnDefs = [
         {
@@ -32,6 +34,7 @@ export default function Training() {
         getTrainings();
     }, []);
 
+    //using gettraininsg api
     const getTrainings = () => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/gettrainings")
             .then(response => response.json())
@@ -43,7 +46,7 @@ export default function Training() {
 
     return (
         <>
-            <div className="ag-theme-material" style={{ height: 600, width: '120%', margin: 'auto' }}>
+            <div className="ag-theme-material" style={{ height: 600, width: 900, margin: 'auto' }}>
                 <AgGridReact
                     rowData={trainings}
                     columnDefs={columnDefs}
