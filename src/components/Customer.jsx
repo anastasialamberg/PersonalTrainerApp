@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { Button, Snackbar } from "@mui/material";
 import AddCustomer from "./AddCustomer";
+import EditCustomer from "./EditCustomer";
 
 export default function Customer() {
 
@@ -36,6 +37,14 @@ export default function Customer() {
             ),
             width: 120
         },
+        //cellrenderer for edit button
+        {
+            headerName: '',
+            cellRenderer: params => (
+                <EditCustomer customer={params.data} onSave={updateCustomer} onCancel={handleCancel} />
+            ),
+            width: 120
+        }
     ];
 
     useEffect(() => {
@@ -69,6 +78,27 @@ export default function Customer() {
         }
     };
 
+    //Update customer
+    const updateCustomer = (updatedCustomer) => {
+        fetch(updatedCustomer._links.customer.href, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedCustomer)
+        })
+            .then(repsonse => {
+                if (repsonse.ok) {
+                    setSnackMessage("The customer was updated successfully!");
+                    setOpenSnackBar(true);
+                    getCustomers();
+                } else {
+                    window.alert("Something went wrong with saving");
+                }
+            })
+            .catch(error => console.error(error));
+    }
+
     //save new customer
     const handleSave = (newCustomer) => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/customers", {
@@ -97,7 +127,7 @@ export default function Customer() {
         <>
 
             <AddCustomer onSave={handleSave} onCancel={handleCancel} />
-            <div className="ag-theme-material" style={{ height: 500, width: 1500, margin: 'auto' }} >
+            <div className="ag-theme-material" style={{ height: 500, width: 1700, margin: 'auto' }} >
 
                 <AgGridReact
                     rowData={customers}
