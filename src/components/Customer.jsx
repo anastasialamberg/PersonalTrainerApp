@@ -2,7 +2,7 @@ import { AgGridReact } from "ag-grid-react";
 import { useEffect, useState } from "react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
-import { Snackbar } from "@mui/material";
+import { Button, Snackbar } from "@mui/material";
 import AddCustomer from "./AddCustomer";
 
 export default function Customer() {
@@ -22,6 +22,20 @@ export default function Customer() {
         { field: 'city', sortable: true, filter: true, floatiFilter: true },
         { field: 'email', sortable: true, filter: true, floatiFilter: true },
         { field: 'phone', sortable: true, filter: true, floatiFilter: true },
+        {
+            //cellrenderer for delete button
+            headerName: '',
+            cellRenderer: params => (
+                <Button
+                    size="small"
+                    color="error"
+                    onClick={() => deleteCustomer(params.data)}
+                >
+                    Delete
+                </Button>
+            ),
+            width: 120
+        },
     ];
 
     useEffect(() => {
@@ -38,6 +52,24 @@ export default function Customer() {
             .catch(error => console.error(error));
     };
 
+    //delete customer
+    const deleteCustomer = (customer) => {
+        if (window.confirm("Are you sure you want to delete this customer?")) {
+            fetch(customer._links.customer.href, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        setSnackMessage("The customer was deleted succesfully!");
+                        setOpenSnackBar(true);
+                        getCustomers();
+                    } else {
+                        window.alert("Something went wrong with deleting");
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    };
+
+    //save new customer
     const handleSave = (newCustomer) => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/customers", {
             method: 'POST',
