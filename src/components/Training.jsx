@@ -69,12 +69,11 @@ export default function Training() {
     // Function to delete a training
     const deleteTraining = (training) => {
         if (window.confirm("Are you sure you want to delete this training?")) {
-            fetch(`https://customerrestservice-personaltraining.rahtiapp.fi/gettrainings`, {
+            fetch(`https://customerrestservice-personaltraining.rahtiapp.fi/api/trainings/${training.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(training)
+                }
             })
                 .then(response => {
                     if (!response.ok) {
@@ -90,6 +89,9 @@ export default function Training() {
                 });
         }
     };
+
+
+
 
 
     return (
