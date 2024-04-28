@@ -1,17 +1,21 @@
-import { AgGridReact } from "ag-grid-react";
+// Training.jsx
+
 import { useEffect, useState } from "react";
+import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { format } from "date-fns";
 import { Button, Snackbar } from "@mui/material";
+import AddTraining from "./AddTraining";
 
 export default function Training() {
-
-    //States
+    // Tilat
     const [trainings, setTrainings] = useState([]);
     const [openSnackbar, setOpenSnackBar] = useState(false);
     const [snackmessage, setSnackMessage] = useState("");
+    const [customers, setCustomers] = useState([]);
 
+    // Sarakkeiden määrittely
     const columnDefs = [
         {
             field: 'date',
@@ -33,7 +37,6 @@ export default function Training() {
             floatingFilter: true
         },
         {
-            //cellrenderer for delete button
             headerName: '',
             cellRenderer: params => (
                 <Button
@@ -48,10 +51,13 @@ export default function Training() {
         },
     ];
 
+    // Haetaan harjoitukset ja asiakastiedot
     useEffect(() => {
         getTrainings();
+        getCustomers();
     }, []);
 
+    // Haetaan harjoitukset
     const getTrainings = () => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/gettrainings")
             .then(response => {
@@ -66,7 +72,18 @@ export default function Training() {
             .catch(error => console.error(error));
     };
 
-    // Function to delete a training
+    // Haetaan asiakastiedot
+    //get all customers
+    const getCustomers = () => {
+        fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/customers")
+            .then(response => response.json())
+            .then(responseData => {
+                setCustomers(responseData._embedded.customers);
+            })
+            .catch(error => console.error(error));
+    };
+
+    // Funktio harjoituksen poistamiseksi
     const deleteTraining = (training) => {
         if (window.confirm("Are you sure you want to delete this training?")) {
             fetch(`https://customerrestservice-personaltraining.rahtiapp.fi/api/trainings/${training.id}`, {
@@ -91,11 +108,58 @@ export default function Training() {
     };
 
 
+    const handleSave = () => {
+
+        const selectedCustomer = customers.find(customer => customer.firstname === trainings.firstname && customer.lastname === trainings.lastname);
+
+        if (!selectedCustomer) {
+            window.alert("Customer not found!");
+            return;
+        }
 
 
+        const isoDate = new Date(trainings.date).toISOString();
+
+
+        const trainingToAdd = {
+            date: isoDate,
+            activity: trainings.activity,
+            duration: trainings.duration,
+            customer: selectedCustomer
+        };
+
+        fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/trainings", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(trainingToAdd)
+        })
+            .then(response => {
+                if (response.ok) {
+                    setSnackMessage("The training was saved successfully!");
+                    setOpenSnackBar(true);
+                    getTrainings();
+                } else {
+                    window.alert("Something went wrong with saving");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                window.alert("An error occurred while processing the request");
+            });
+    };
+
+
+
+
+    const handleCancel = () => {
+
+    };
 
     return (
         <>
+            <AddTraining customers={customers} onSave={handleSave} onCancel={handleCancel} trainings={trainings} />
             <div className="ag-theme-material" style={{ height: 600, width: 900, margin: 'auto' }}>
                 <AgGridReact
                     rowData={trainings}
