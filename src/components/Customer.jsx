@@ -5,6 +5,8 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 import { Button, Snackbar } from "@mui/material";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
+import CsvDownloader from "react-csv-downloader";
+import ExportCsv from "./ExportCsv";
 
 export default function Customer() {
 
@@ -142,6 +144,14 @@ export default function Customer() {
                 autoHideDuration={3000}
                 onClose={() => setOpenSnackBar(false)}
                 message={snackmessage}
+            />
+
+            <CsvDownloader
+                datas={customers}
+                text="Export CSV"
+                filename={'customerdata' + new Date().toLocaleString()}
+                extension=".csv"
+                className="btn-btn-success"
             />
         </>
     );
