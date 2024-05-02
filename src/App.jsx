@@ -18,6 +18,9 @@ function App() {
         <button>
           <Link to="/training">Training</Link>
         </button>
+        <button>
+          <Link to="/calendar">Calendar</Link>
+        </button>
       </nav>
       <Outlet />
     </div>
