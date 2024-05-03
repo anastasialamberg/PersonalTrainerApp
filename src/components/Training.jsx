@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { Button, Snackbar } from "@mui/material";
 import AddTraining from "./AddTraining";
 
+import { Link } from "react-router-dom";
+
 export default function Training() {
     // Tilat
     const [trainings, setTrainings] = useState([]);
@@ -174,6 +176,7 @@ export default function Training() {
                 onClose={() => setOpenSnackBar(false)}
                 message={snackmessage}
             />
+            <Link to="/statistics">Go to Statistics</Link>
         </>
     );
 }

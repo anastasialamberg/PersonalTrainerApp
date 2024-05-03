@@ -4,20 +4,23 @@ import './App.css'
 
 function App() {
 
-
+  // router napit
   return (
     <div className='App'>
-      <h1>Trainig app</h1>
+      <h1>Training app</h1>
       <nav>
         <button>
           <Link to="/">Home</Link>
-        </button>
+        </button>{" "}
+
         <button>
           <Link to="/customer">Customers</Link>
-        </button>
+        </button>{" "}
+
         <button>
           <Link to="/training">Training</Link>
-        </button>
+        </button>{" "}
+
         <button>
           <Link to="/calendar">Calendar</Link>
         </button>
@@ -27,4 +30,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

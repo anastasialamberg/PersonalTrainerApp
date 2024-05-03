@@ -129,7 +129,7 @@ export default function Customer() {
         <>
 
             <AddCustomer onSave={handleSave} onCancel={handleCancel} />
-            <div className="ag-theme-material" style={{ height: 500, width: 1700, margin: 'auto' }} >
+            <div className="ag-theme-material" style={{ height: 600, width: 1700, margin: 'auto' }} >
 
                 <AgGridReact
                     rowData={customers}
@@ -152,6 +152,7 @@ export default function Customer() {
                 filename={'customerdata' + new Date().toLocaleString()}
                 extension=".csv"
                 className="btn-btn-success"
+                style={{ color: 'white' }}
             />
         </>
     );
