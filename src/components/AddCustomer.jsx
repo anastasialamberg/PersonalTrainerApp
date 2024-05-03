@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function AddCustomer({ onSave, onCancel }) {
 
+    // kentät
     const [customer, setCustomer] = useState({
 
         firstname: '',
@@ -16,6 +17,7 @@ export default function AddCustomer({ onSave, onCancel }) {
 
     const [open, setOpen] = useState(false);
 
+    // funktiot
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -60,6 +62,7 @@ export default function AddCustomer({ onSave, onCancel }) {
         handleClose();
     }
 
+    // dialog
     return (
         <>
             <Button onClick={handleClickOpen}>Add customer</Button>

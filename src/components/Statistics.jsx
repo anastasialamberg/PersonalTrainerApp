@@ -3,6 +3,8 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } fro
 import _ from "lodash";
 
 export default function Stat() {
+
+    //States
     const [activityData, setActivityData] = useState([]);
     const [trainings, setTrainings] = useState([]);
 
@@ -14,6 +16,7 @@ export default function Stat() {
         generateActivityData(trainings);
     }, [trainings]);
 
+    // haetaan treenit fetch
     const getTrainings = () => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/gettrainings")
             .then(response => {
@@ -28,6 +31,7 @@ export default function Stat() {
             .catch(error => console.error(error));
     };
 
+    // erotetaan ja määritellään data oikeisiin pylväisiin
     const generateActivityData = (trainings) => {
         const groupedData = _(trainings)
             .groupBy('activity')
@@ -40,6 +44,7 @@ export default function Stat() {
         setActivityData(groupedData);
     };
 
+    // Pylväskaavio
     return (
         <div style={{ width: 1300, height: 500 }}>
             <ResponsiveContainer>

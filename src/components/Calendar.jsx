@@ -26,7 +26,7 @@ export default function CalendarPage() {
     }, []);
 
 
-    // Array for events
+    // Tiedot kalenteriin
     const events = calendarTrainings.map((item) => {
         const { id, date, duration, activity, customer } = item;
 
@@ -49,7 +49,7 @@ export default function CalendarPage() {
     });
 
 
-    // Calendar
+    // Kalenteri
     const CustomCalendar = () => (
         <div>
             <Calendar
@@ -58,12 +58,12 @@ export default function CalendarPage() {
                 startAccessor="start"
                 endAccessor="end"
                 style={{
-                    height: 800,
+                    height: 600,
                     width: 1000,
                     margin: '10px',
                     backgroundColor: '#7da0d8',
                 }}
-                
+
             />
         </div>
     );

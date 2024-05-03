@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 
-export default function EditCustomer({ customer, onSave, onCancel }) {
+export default function EditCustomer({ customer, onSave }) {
 
+    //States
     const [open, setOpen] = useState(false);
     const [editedCustomer, setEditedCustomer] = useState(customer);
 
+    // funktiot
     const handleClickOpen = () => {
         setEditedCustomer(customer);
         setOpen(true);
@@ -32,6 +34,7 @@ export default function EditCustomer({ customer, onSave, onCancel }) {
         }));
     };
 
+    // dialog
     return (
         <>
             <Button onClick={handleClickOpen}>Edit</Button>

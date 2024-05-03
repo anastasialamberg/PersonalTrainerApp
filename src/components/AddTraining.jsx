@@ -2,6 +2,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { useState } from "react";
 
 export default function AddTraining({ onSave, onCancel, customers }) {
+
+    // Kentät
     const [training, setTraining] = useState({
         date: '',
         duration: '',
@@ -11,6 +13,7 @@ export default function AddTraining({ onSave, onCancel, customers }) {
 
     const [open, setOpen] = useState(false);
 
+    // funktiot
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -41,7 +44,7 @@ export default function AddTraining({ onSave, onCancel, customers }) {
         handleClose();
     };
 
-
+    // Dialog
     return (
         <>
             <Button onClick={handleClickOpen}>Add training</Button>

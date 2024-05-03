@@ -16,7 +16,7 @@ export default function Customer() {
     const [openSnackbar, setOpenSnackBar] = useState(false);
     const [snackmessage, setSnackMessage] = useState("");
 
-    //Colum Definitions for AGGrid
+    //Kentät aggridiin
     const columnDefs = [
         { field: 'firstname', sortable: true, filter: true, floatiFilter: true },
         { field: 'lastname', sortable: true, filter: true, floatiFilter: true },
@@ -26,7 +26,7 @@ export default function Customer() {
         { field: 'email', sortable: true, filter: true, floatiFilter: true },
         { field: 'phone', sortable: true, filter: true, floatiFilter: true },
         {
-            //cellrenderer for delete button
+            //cellrenderer poisto napille
             headerName: '',
             cellRenderer: params => (
                 <Button
@@ -39,7 +39,7 @@ export default function Customer() {
             ),
             width: 120
         },
-        //cellrenderer for edit button
+        //cellrenderer edit napille
         {
             headerName: '',
             cellRenderer: params => (
@@ -53,7 +53,7 @@ export default function Customer() {
         getCustomers();
     }, []);
 
-    //get all customers
+    //haetaan kaikki customerit, fetch
     const getCustomers = () => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/customers")
             .then(response => response.json())
@@ -63,7 +63,7 @@ export default function Customer() {
             .catch(error => console.error(error));
     };
 
-    //delete customer
+    //poistetaan customer
     const deleteCustomer = (customer) => {
         if (window.confirm("Are you sure you want to delete this customer?")) {
             fetch(customer._links.customer.href, { method: 'DELETE' })
@@ -80,7 +80,7 @@ export default function Customer() {
         }
     };
 
-    //Update customer
+    //päivitetään customer
     const updateCustomer = (updatedCustomer) => {
         fetch(updatedCustomer._links.customer.href, {
             method: 'PUT',
@@ -101,7 +101,7 @@ export default function Customer() {
             .catch(error => console.error(error));
     }
 
-    //save new customer
+    //tallenetaan uusi customer
     const handleSave = (newCustomer) => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/customers", {
             method: 'POST',

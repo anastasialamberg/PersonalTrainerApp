@@ -11,13 +11,13 @@ import AddTraining from "./AddTraining";
 import { Link } from "react-router-dom";
 
 export default function Training() {
-    // Tilat
+    //States
     const [trainings, setTrainings] = useState([]);
     const [openSnackbar, setOpenSnackBar] = useState(false);
     const [snackmessage, setSnackMessage] = useState("");
     const [customers, setCustomers] = useState([]);
 
-    // Sarakkeiden määrittely
+    // Kentät
     const columnDefs = [
         {
             field: 'date',
@@ -59,7 +59,7 @@ export default function Training() {
         getCustomers();
     }, []);
 
-    // Haetaan harjoitukset
+    // Haetaan kaikki harjoitukset
     const getTrainings = () => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/gettrainings")
             .then(response => {
@@ -74,7 +74,7 @@ export default function Training() {
             .catch(error => console.error(error));
     };
 
-    // Haetaan asiakastiedot
+    // Haetaan kaikki asiakastiedot
     //get all customers
     const getCustomers = () => {
         fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/customers")
@@ -85,7 +85,7 @@ export default function Training() {
             .catch(error => console.error(error));
     };
 
-    // Funktio harjoituksen poistamiseksi
+    // Harjoituksen poistaminen
     const deleteTraining = (training) => {
         if (window.confirm("Are you sure you want to delete this training?")) {
             fetch(`https://customerrestservice-personaltraining.rahtiapp.fi/api/trainings/${training.id}`, {
@@ -109,7 +109,7 @@ export default function Training() {
         }
     };
 
-
+    // tallenetaan asikas: ei toimi
     const handleSave = () => {
 
         const selectedCustomer = customers.find(customer => customer.firstname === trainings.firstname && customer.lastname === trainings.lastname);
@@ -119,9 +119,7 @@ export default function Training() {
             return;
         }
 
-
         const isoDate = new Date(trainings.date).toISOString();
-
 
         const trainingToAdd = {
             date: isoDate,
@@ -153,8 +151,6 @@ export default function Training() {
     };
 
 
-
-
     const handleCancel = () => {
 
     };
@@ -162,7 +158,7 @@ export default function Training() {
     return (
         <>
             <AddTraining customers={customers} onSave={handleSave} onCancel={handleCancel} trainings={trainings} />
-            <div className="ag-theme-material" style={{ height: 600, width: 900, margin: 'auto' }}>
+            <div className="ag-theme-material" style={{ height: 600, width: 1000, margin: 'auto' }}>
                 <AgGridReact
                     rowData={trainings}
                     columnDefs={columnDefs}
