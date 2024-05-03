@@ -53,7 +53,7 @@ export default function AddTraining({ onSave, onCancel, customers }) {
                 <DialogContent>
                     <TextField
                         margin="dense"
-                        label="Date"
+                        label=""
                         type="datetime-local"
                         value={training.date}
                         onChange={(e) => setTraining({ ...training, date: e.target.value })}

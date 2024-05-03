@@ -5,19 +5,19 @@ import './App.css';
 function App() {
   return (
     <div className='App'>
-      <h1>Training app</h1>
+      <h1 >Training app</h1>
       <nav>
         <button>
-          <Link to="/">Home</Link>
+          <Link to="/" style={{ color: 'white' }}>Home</Link>
         </button>{" "}
         <button>
-          <Link to="/customer">Customers</Link>
+          <Link to="/customer" style={{ color: 'white' }}>Customers</Link>
         </button>{" "}
         <button>
-          <Link to="/training">Training</Link>
+          <Link to="/training" style={{ color: 'white' }}>Training</Link>
         </button>{" "}
         <button>
-          <Link to="/calendar">Calendar</Link>
+          <Link to="/calendar" style={{ color: 'white' }}>Calendar</Link>
         </button>
       </nav>
       <Outlet />

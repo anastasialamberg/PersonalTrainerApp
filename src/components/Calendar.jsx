@@ -61,7 +61,8 @@ export default function CalendarPage() {
                     height: 600,
                     width: 1000,
                     margin: '10px',
-                    backgroundColor: '#7da0d8',
+                    backgroundColor: '#8894d2',
+                    color: 'black'
                 }}
 
             />
