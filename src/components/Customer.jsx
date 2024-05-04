@@ -99,7 +99,7 @@ export default function Customer() {
                 }
             })
             .catch(error => console.error(error));
-    }
+    };
 
     //tallenetaan uusi customer
     const handleSave = (newCustomer) => {

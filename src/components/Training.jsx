@@ -109,7 +109,7 @@ export default function Training() {
         }
     };
 
-    // tallenetaan asikas: ei toimi
+    // tallenetaan uusi treeni: ei toimi
     const handleSave = () => {
 
         const selectedCustomer = customers.find(customer => customer.firstname === trainings.firstname && customer.lastname === trainings.lastname);
