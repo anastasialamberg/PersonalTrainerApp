@@ -14,7 +14,7 @@ function App() {
           <Link to="/customer" style={{ color: 'white' }}>Customers</Link>
         </button>{" "}
         <button>
-          <Link to="/training" style={{ color: 'white' }}>Training</Link>
+          <Link to="/training" style={{ color: 'white' }}>Trainings</Link>
         </button>{" "}
         <button>
           <Link to="/calendar" style={{ color: 'white' }}>Calendar</Link>
